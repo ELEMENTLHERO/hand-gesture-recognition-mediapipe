@@ -4,8 +4,13 @@ import csv
 import copy
 import argparse
 import itertools
+import time
+import json
 from collections import Counter
 from collections import deque
+
+import inspect, os.path
+import os
 
 import cv2 as cv
 import numpy as np
@@ -39,6 +44,9 @@ def get_args():
 
 
 def main():
+    filename = inspect.getframeinfo(inspect.currentframe()).filename
+    path = os.path.dirname(os.path.dirname(os.path.abspath(filename)))  # get current directory and move one step 'up'
+
     # Argument parsing #################################################################
     args = get_args()
 
@@ -123,6 +131,43 @@ def main():
 
         #  ####################################################################
         if results.multi_hand_landmarks is not None:
+
+            def write_data_to_json(hand_landmarks, handedness):
+                try:
+                    # count number of fingers raised
+                    if hand_landmarks != []:
+                        all_data = []
+                        da_time = str(time.time())
+
+                        for idx in range(len(hand_landmarks)):
+                            hand_landmarks = hand_landmarks[idx]
+                            output = {}
+                            data = []
+                            for landmark in hand_landmarks.landmark:
+                                data.append({"x": landmark.x, "y": landmark.y, "z": landmark.z})
+                            #handed = handedness[idx]
+                            # print(handed[idx].index)
+                            #output['index'] = handed[0].index
+                            #output['category_name'] = handed[0].category_name
+                            output['time'] = da_time
+                            hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
+                            output['letter_id'] = str(hand_sign_id)
+                            output['letter'] = str(chr(hand_sign_id+97))
+
+                            output['landmark_data'] = data
+
+                            all_data.append(output)
+                        s = json.dumps(all_data)
+                        # print(s)
+                        f = open(os.path.join(path, "hands_data.json"), "x")
+                        f.write(s)
+                        f.close()
+
+                except:
+                    pass
+
+            write_data_to_json(results.multi_hand_landmarks, results.multi_handedness)
+
             for hand_landmarks, handedness in zip(results.multi_hand_landmarks,
                                                   results.multi_handedness):
                 # Bounding box calculation
