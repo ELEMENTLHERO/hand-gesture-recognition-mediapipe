@@ -159,7 +159,7 @@ def main():
                             all_data.append(output)
                         s = json.dumps(all_data)
                         # print(s)
-                        f = open(os.path.join(path, "hands_data.json"), "x")
+                        f = open(os.path.join(path, "hands_data.json"), "w")
                         f.write(s)
                         f.close()
 
