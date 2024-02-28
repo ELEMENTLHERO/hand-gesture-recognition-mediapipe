@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cs78enuq0krab"
+
+[deps]
+
+files=["res://hand-gesture-recognition-mediapipe/model/point_history_classifier/point_history.0.translation", "res://hand-gesture-recognition-mediapipe/model/point_history_classifier/point_history.0.translation", "res://hand-gesture-recognition-mediapipe/model/point_history_classifier/point_history.0.translation"]
+
+source_file="res://hand-gesture-recognition-mediapipe/model/point_history_classifier/point_history.csv"
+dest_files=["res://hand-gesture-recognition-mediapipe/model/point_history_classifier/point_history.0.translation", "res://hand-gesture-recognition-mediapipe/model/point_history_classifier/point_history.0.translation", "res://hand-gesture-recognition-mediapipe/model/point_history_classifier/point_history.0.translation"]
+
+[params]
+
+compress=true
+delimiter=0

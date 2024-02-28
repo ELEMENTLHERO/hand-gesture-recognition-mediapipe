@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bj2h71378rosj"
+
+[deps]
+
+files=["res://hand-gesture-recognition-mediapipe/model/keypoint_classifier/keypoint.0.0.translation", "res://hand-gesture-recognition-mediapipe/model/keypoint_classifier/keypoint.0.0.translation"]
+
+source_file="res://hand-gesture-recognition-mediapipe/model/keypoint_classifier/keypoint.csv"
+dest_files=["res://hand-gesture-recognition-mediapipe/model/keypoint_classifier/keypoint.0.0.translation", "res://hand-gesture-recognition-mediapipe/model/keypoint_classifier/keypoint.0.0.translation"]
+
+[params]
+
+compress=true
+delimiter=0
