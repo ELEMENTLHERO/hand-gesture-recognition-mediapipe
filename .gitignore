@@ -133,3 +133,8 @@ dmypy.json
 .idea/
 
 .DS_Store
+
+hands_data.txt
+hands_data.json
+*.import
+*.translation
