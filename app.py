@@ -132,7 +132,7 @@ def main():
         #  ####################################################################
         if results.multi_hand_landmarks is not None:
 
-            def write_data_to_json(hand_landmarks, handedness):
+            def write_data_to_json(hand_landmarks, handedness, most_common_fg_id):
                 try:
                     # count number of fingers raised
                     if hand_landmarks != []:
@@ -151,9 +151,22 @@ def main():
                             #output['category_name'] = handed[0].category_name
                             output['time'] = da_time
                             hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
+
+                            if hand_sign_id == 0:
+                                if point_history_classifier_labels[most_common_fg_id[0][0]] == 'Counter Clockwise':
+                                    hand_sign_id = 26
+                                    print('å')
+                                if point_history_classifier_labels[most_common_fg_id[0][0]] == 'Move':
+                                    hand_sign_id = 27
+                                    print('ä')
+                            if hand_sign_id == 14 and point_history_classifier_labels[most_common_fg_id[0][0]] == 'Move':
+                                hand_sign_id = 28
+                                print('ö')
+
                             output['letter_id'] = str(hand_sign_id)
                             output['letter'] = str(chr(hand_sign_id+97))
-
+                            #print(point_history_classifier_labels[most_common_fg_id[0][0]])
+                            #print(keypoint_classifier_labels[hand_sign_id])
                             output['landmark_data'] = data
 
                             all_data.append(output)
@@ -165,8 +178,6 @@ def main():
 
                 except:
                     pass
-
-            write_data_to_json(results.multi_hand_landmarks, results.multi_handedness)
 
             for hand_landmarks, handedness in zip(results.multi_hand_landmarks,
                                                   results.multi_handedness):
@@ -186,7 +197,7 @@ def main():
 
                 # Hand sign classification
                 hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
-                if hand_sign_id == 2:  # Point gesture
+                if hand_sign_id == 0 or hand_sign_id == 14:  # Point gesture
                     point_history.append(landmark_list[8])
                 else:
                     point_history.append([0, 0])
@@ -213,6 +224,8 @@ def main():
                     keypoint_classifier_labels[hand_sign_id],
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
+
+            write_data_to_json(results.multi_hand_landmarks, results.multi_handedness, most_common_fg_id)
         else:
             point_history.append([0, 0])
 
