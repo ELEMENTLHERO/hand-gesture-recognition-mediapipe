@@ -155,23 +155,17 @@ def main():
                             if hand_sign_id == 0:
                                 if point_history_classifier_labels[most_common_fg_id[0][0]] == 'Counter Clockwise':
                                     hand_sign_id = 26
-                                    print('å')
-                                if point_history_classifier_labels[most_common_fg_id[0][0]] == 'Move':
+                                if point_history_classifier_labels[most_common_fg_id[0][0]] == 'Move Right':
                                     hand_sign_id = 27
-                                    print('ä')
-                            if hand_sign_id == 14 and point_history_classifier_labels[most_common_fg_id[0][0]] == 'Move':
+                            if hand_sign_id == 14 and point_history_classifier_labels[most_common_fg_id[0][0]] == 'Move Down':
                                 hand_sign_id = 28
-                                print('ö')
 
                             output['letter_id'] = str(hand_sign_id)
                             output['letter'] = str(chr(hand_sign_id+97))
-                            #print(point_history_classifier_labels[most_common_fg_id[0][0]])
-                            #print(keypoint_classifier_labels[hand_sign_id])
                             output['landmark_data'] = data
 
                             all_data.append(output)
                         s = json.dumps(all_data)
-                        # print(s)
                         f = open(os.path.join(path, "hands_data.json"), "w")
                         f.write(s)
                         f.close()
