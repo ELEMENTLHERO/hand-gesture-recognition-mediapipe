@@ -48,7 +48,7 @@ if __name__ == '__main__':
     command = sys.argv[1]
     if command == 'sort':
         input_file = 'keypoint.csv' if len(sys.argv) <= 2 else sys.argv[2]
-        output_file = 'point_history.csv' if len(sys.argv) <= 3 else sys.argv[3]
+        output_file = 'keypoint.csv' if len(sys.argv) <= 3 else sys.argv[3]
         sort_file_by_first_number(input_file, output_file)
     elif command == 'count':
         file = 'keypoint.csv' if len(sys.argv) <= 2 else sys.argv[2]
